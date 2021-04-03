@@ -81,9 +81,9 @@ void async function () {
   const result = await worker.recognize('extract.png');
   await worker.terminate();
 
-  const text = result.data.text.replace(/\s/g, '').replace(/^:/, '');
+  const text = result.data.text.replace(/\s/g, '').trim().match(/\s*:?(?<time>(([1-9]?[1-9]:)?[1-9])?\d:\d\d)\s*$/);
   const stamp = new Date().toLocaleString('en-US', { timeZone: 'Europe/Prague', hour12: false, hour: '2-digit', minute: '2-digit' });
-  await fs.promises.writeFile('countdown.now', text + ' @ ' + stamp);
+  await fs.promises.writeFile('countdown.now', text.groups.time + ' @ ' + stamp);
 
-  console.log('Recognized text', text);
+  console.log('Recognized text', text.groups.time);
 }()

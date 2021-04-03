@@ -19,3 +19,10 @@ jobs:
         authorization="Authorization: token ${{secrets.API_TOKEN}}"
         description=$(cat countdown.now)
         curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"$description"}'
+    - uses: actions/upload-artifact@v2
+      with:
+        name: drop
+        path: |
+          live_user_ludwig-1920x1080.jpg
+          extract.png
+          countdown.now

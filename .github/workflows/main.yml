@@ -21,8 +21,13 @@ jobs:
         curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"$description"}'
     - uses: actions/upload-artifact@v2
       with:
-        name: drop
-        path: |
-          live_user_ludwig-1920x1080.jpg
-          extract.png
-          countdown.now
+        name: live_user_ludwig-1920x1080.jpg
+        path: live_user_ludwig-1920x1080.jpg
+    - uses: actions/upload-artifact@v2
+      with:
+        name: extract.png
+        path: extract.png
+    - uses: actions/upload-artifact@v2
+      with:
+        name: countdown.now
+        path: countdown.now

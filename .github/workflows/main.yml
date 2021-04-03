@@ -19,7 +19,7 @@ jobs:
         npm install
         node .
         authorization="Authorization: token ${{secrets.API_TOKEN}}"
-        description=$(cat countdown.now)
+        description=$(cat countdown.now)" @ "$(date -Iseconds)
         curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"'"$description"'"}'
     # Note that the artifacts can't be downloaded raw, they'll always be zipped
     # https://github.com/actions/upload-artifact#zipped-artifact-downloads

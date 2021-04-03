@@ -19,15 +19,12 @@ jobs:
         authorization="Authorization: token ${{secrets.API_TOKEN}}"
         description=$(cat countdown.now)
         curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"$description"}'
+    # Note that the artifacts can't be downloaded raw, they'll always be zipped
+    # https://github.com/actions/upload-artifact#zipped-artifact-downloads
     - uses: actions/upload-artifact@v2
       with:
-        name: live_user_ludwig-1920x1080.jpg
-        path: live_user_ludwig-1920x1080.jpg
-    - uses: actions/upload-artifact@v2
-      with:
-        name: extract.png
-        path: extract.png
-    - uses: actions/upload-artifact@v2
-      with:
-        name: countdown.now
-        path: countdown.now
+        name: drop
+        path: |
+          live_user_ludwig-1920x1080.jpg
+          extract.png
+          countdown.now

@@ -1,0 +1,20 @@
+name: github-actions
+on:
+  push:
+    branches:
+    # Limit to the `master` branch
+    - master
+  schedule:
+    # Run every 5 minutes
+    - cron:  '*/5 * * * *'
+jobs:
+  github-actions:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run the workflow
+      run: |
+        node .
+        authorization="Authorization: token ${{secrets.GITHUB_TOKEN}}"
+        description=$(cat countdown.now)
+        curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"description"}'

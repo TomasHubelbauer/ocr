@@ -1,0 +1,10 @@
+live_user_ludwig-1920x1080.jpg
+extract.png
+countdown.now
+
+# Node
+node_modules
+package-lock.json
+
+# Tesseract
+eng.traineddata

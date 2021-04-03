@@ -32,10 +32,10 @@ void async function () {
   const metadata = await image.metadata();
   const buffer = await image.raw().toBuffer();
 
-  let minX;
-  let maxX;
-  let minY;
-  let maxY;
+  let left;
+  let right;
+  let top;
+  let bottom;
   for (let y = 0; y < metadata.height; y++) {
     for (let x = 0; x < metadata.width; x++) {
       const offset = metadata.channels * (metadata.width * y + x);
@@ -46,27 +46,29 @@ void async function () {
       const g2 = buffer[offset + 4] === 10;
       const b2 = buffer[offset + 5] === 64;
       if (r1 && g1 && b1 && r2 && g2 && b2) {
-        if (minX === undefined || x < minX) {
-          minX = x;
+        if (left === undefined || x < left) {
+          left = x;
         }
 
-        if (maxX === undefined || x > maxX) {
-          maxX = x;
+        if (right === undefined || x > right) {
+          right = x;
         }
 
-        if (minY === undefined || y < minY) {
-          minY = y;
+        if (top === undefined || y < top) {
+          top = y;
         }
 
-        if (maxY === undefined || y > maxY) {
-          maxY = y;
+        if (bottom === undefined || y > bottom) {
+          bottom = y;
         }
       }
     }
   }
 
   // Crop off the rocket by only taking the top half of the countdown region
-  const region = { left: minX, top: minY, width: maxX - minX, height: ~~((maxY - minY) / 2) };
+  const width = right - left;
+  const height = bottom - top;
+  const region = { left, top: top + ~~(height * .2), width: ~~(width * .9), height: ~~(height * .35) };
   await fs.promises.writeFile('extract.png', await image.extract(region).negate().png().toBuffer());
 
   console.log('Countdown extracted', region);

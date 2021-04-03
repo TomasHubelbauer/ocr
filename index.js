@@ -79,7 +79,7 @@ void async function () {
   const result = await worker.recognize('extract.png');
   await worker.terminate();
 
-  const text = result.data.text;
+  const text = result.data.text.replace(/\s/g, '').replace(/^:/, '');
   await fs.promises.writeFile('countdown.now', text);
 
   console.log('Recognized text', text);

@@ -16,6 +16,6 @@ jobs:
       run: |
         npm install
         node .
-        authorization="Authorization: token ${{secrets.GITHUB_TOKEN}}"
+        authorization="Authorization: token ${{secrets.API_TOKEN}}"
         description=$(cat countdown.now)
-        curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"description"}'
+        curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"$description"}'

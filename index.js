@@ -70,5 +70,6 @@ void async function () {
   // Remove the misrecognized one that comes up before the actual countdown text
   const text = result.data.text.slice('1'.length);
   await fs.promises.writeFile('countdown.now', text);
-  console.log(text);
+
+  console.log('Recognized text', text);
 }()

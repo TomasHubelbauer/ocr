@@ -36,10 +36,13 @@ void async function () {
   for (let y = 0; y < metadata.height; y++) {
     for (let x = 0; x < metadata.width; x++) {
       const offset = metadata.channels * (metadata.width * y + x);
-      const r = buffer[offset];
-      const g = buffer[offset + 1];
-      const b = buffer[offset + 2];
-      if (r === 17 && g === 10 && b === 64) {
+      const r1 = buffer[offset] === 17;
+      const g1 = buffer[offset + 1] === 10;
+      const b1 = buffer[offset + 2] === 64;
+      const r2 = buffer[offset + 3] === 17;
+      const g2 = buffer[offset + 4] === 10;
+      const b2 = buffer[offset + 5] === 64;
+      if (r1 && g1 && b1 && r2 && g2 && b2) {
         if (minX === undefined || x < minX) {
           minX = x;
         }

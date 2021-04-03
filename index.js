@@ -3,6 +3,9 @@ import fs from 'fs';
 import sharp from 'sharp';
 import tesseract from 'tesseract.js';
 
+process.addListener('unhandledRejection', error => { throw error; });
+process.addListener('uncaughtException', error => { throw error; });
+
 void async function () {
   try {
     await fs.promises.access('live_user_ludwig-1920x1080.jpg');

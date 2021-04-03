@@ -62,16 +62,21 @@ void async function () {
     }
   }
 
-  const region = { left: minX, top: minY, width: maxX - minX, height: maxY - minY };
-  const extract = await image.extract(region);
-  await fs.promises.writeFile('extract.png', await extract.png().toBuffer());
+  // Crop off the rocket by only taking the top half of the countdown region
+  const region = { left: minX, top: minY, width: maxX - minX, height: (maxY - minY) / 2 };
+  await fs.promises.writeFile('extract.png', await image.extract(region).negate().png().toBuffer());
 
   console.log('Countdown extracted', region);
 
-  const result = await tesseract.recognize('extract.png', 'eng', { logger: console.log });
+  const worker = tesseract.createWorker({ logger: console.log });
+  await worker.load();
+  await worker.loadLanguage('eng');
+  await worker.initialize('eng');
+  await worker.setParameters({ tessedit_char_whitelist: ':0123456789', tessedit_pageseg_mode: tesseract.PSM.SINGLE_LINE });
+  const result = await worker.recognize('extract.png');
+  await worker.terminate();
 
-  // Remove the misrecognized one that comes up before the actual countdown text
-  const text = result.data.text.slice('1'.length);
+  const text = result.data.text;
   await fs.promises.writeFile('countdown.now', text);
 
   console.log('Recognized text', text);

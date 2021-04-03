@@ -80,7 +80,8 @@ void async function () {
   await worker.terminate();
 
   const text = result.data.text.replace(/\s/g, '').replace(/^:/, '');
-  await fs.promises.writeFile('countdown.now', text);
+  const stamp = new Date().toLocaleString('en-US', { timeZone: 'Europe/Prague', hour12: false, hour: '2-digit', minute: '2-digit' });
+  await fs.promises.writeFile('countdown.now', text + ' @ ' + stamp);
 
   console.log('Recognized text', text);
 }()

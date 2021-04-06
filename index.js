@@ -83,7 +83,7 @@ void async function () {
 
   const text = result.data.text.replace(/\s/g, '').trim().match(/\s*:?(?<time>(([1-9]?[1-9]:)?[1-9])?\d:\d\d)\s*$/);
   const pragueTime = new Date().toLocaleString('en-US', { timeZone: 'Europe/Prague', hour12: false, hour: '2-digit', minute: '2-digit' });
-  const ludwigTime = new Date().toLocaleString('en-US', { timeZone: 'PST', hour12: false, hour: '2-digit', minute: '2-digit' });
+  const ludwigTime = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit' });
   await fs.promises.writeFile('countdown.now', `${text.groups.time} @ ${pragueTime} (Prague) / ${ludwigTime} (Ludwig)`);
 
   console.log('Recognized text', text.groups.time);

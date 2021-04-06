@@ -68,7 +68,7 @@ void async function () {
   // Crop off the rocket by only taking the top half of the countdown region
   const width = right - left;
   const height = bottom - top;
-  const region = { left, top: top + ~~(height * .2), width: ~~(width * .9), height: ~~(height * .35) };
+  const region = { left, top: top + ~~(height * .2), width, height: ~~(height * .35) };
   await fs.promises.writeFile('extract.png', await image.extract(region).negate().png().toBuffer());
 
   console.log('Countdown extracted', region);

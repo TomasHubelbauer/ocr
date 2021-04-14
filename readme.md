@@ -22,7 +22,8 @@ The image manipulation is done using Sharp.
 
 ## Status
 
-This project will inevitably stop working once the Subathon ends and I don't
-have anything else I could think of to recognize the value of continuously, so
-whenever the stream ends, I will turn off Actions on this repository and note it
-in this readme.
+The Subathon has ended around 2021-04-14 6:00 Prague, 21:00 Ludwig time zone.
+
+I have disabled GitHub Actions on this project. I will use this repository as a
+template for tracking something else like this if I can think of anything in the
+future.

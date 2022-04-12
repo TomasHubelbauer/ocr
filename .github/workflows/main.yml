@@ -20,7 +20,7 @@ jobs:
         node .
         authorization="Authorization: token ${{secrets.API_TOKEN}}"
         description=$(cat countdown.now)
-        curl -H "$authorization" -X PATCH https://api.github.com/repos/tomashubelbauer/ocr -d '{"description":"'"$description"'"}'
+        curl -H "$authorization" -X PATCH ${{github.api_url}}/repos/${{github.repository}} -d '{"description":"'"$description"'"}'
     # Note that the artifacts can't be downloaded raw, they'll always be zipped
     # https://github.com/actions/upload-artifact#zipped-artifact-downloads
     - uses: actions/upload-artifact@v2

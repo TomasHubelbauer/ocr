@@ -20,7 +20,8 @@ jobs:
         curl -H "$authorization" -X PATCH ${{github.api_url}}/repos/${{github.repository}} -d '{"description":"'"$description"'"}'
     # Note that the artifacts can't be downloaded raw, they'll always be zipped
     # https://github.com/actions/upload-artifact#zipped-artifact-downloads
-    - uses: actions/upload-artifact@v2
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
       with:
         name: drop
         path: |
